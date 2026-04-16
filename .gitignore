@@ -1,0 +1,41 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+.env
+.venv/
+venv/
+env/
+ENV/
+
+# Testing and coverage
+.pytest_cache/
+.coverage
+coverage.xml
+htmlcov/
+
+# FastAPI / Uvicorn
+uvicorn.log
+*.db
+*.sqlite3
+*.sqlite
+
+# Packaging
+build/
+dist/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Type checkers and caches
+.mypy_cache/
+.pytype/
+.pyre/
+
+# IDE/editor
+.vscode/
+.idea/
+# macOS
+.DS_Store
