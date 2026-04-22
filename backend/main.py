@@ -3,12 +3,7 @@ from contextlib import asynccontextmanager
 
 from configs.db import engine, Base
 
-from models import (region
-, user
-, sanitation_record
-, sanitation_occurrence
-, water_quality_record
-, alert)
+from routes import user_routes
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -26,6 +21,8 @@ app = FastAPI(
     version="1.0.0",
     lifespan=lifespan
 )
+
+app.include_router(user_routes.router)
 
 @app.get("/")
 async def root():

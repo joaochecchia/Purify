@@ -10,8 +10,8 @@ from configs.db import Base
 from schemas.enums.risk_level import RiskLevel
 
 if TYPE_CHECKING:
-    from models.region import Region
-    from models.water_quality_record import WaterQualityRecord
+    from domain.models.region import Region
+    from domain.models.water_quality_record import WaterQualityRecord
 
 
 class Alert(Base):

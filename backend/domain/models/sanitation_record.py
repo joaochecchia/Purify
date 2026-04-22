@@ -10,8 +10,8 @@ from configs.db import Base
 
 #Resolução de importação circular
 if TYPE_CHECKING:
-    from models.user import User
-    from models.region import Region
+    from domain.models.user import User
+    from domain.models.region import Region
 
 #inserção da dependência Base
 class SanitationRecord(Base):

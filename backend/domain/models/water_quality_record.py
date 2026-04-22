@@ -3,7 +3,7 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 from datetime import datetime
 
-from sqlalchemy import String, DateTime, func, ForeignKey, Enum, Numeric, Text
+from sqlalchemy import DateTime, func, ForeignKey, Enum, Numeric, Text
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from configs.db import Base
@@ -11,9 +11,9 @@ from schemas.enums.data_origin import DataOrigin
 from schemas.enums.validation_status import ValidationStatus
 
 if TYPE_CHECKING:
-    from models.user import User
-    from models.region import Region
-    from models.alert import Alert
+    from domain.models.user import User
+    from domain.models.region import Region
+    from domain.models.alert import Alert
 
 
 class WaterQualityRecord(Base):

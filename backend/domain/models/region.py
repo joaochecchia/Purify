@@ -3,36 +3,32 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 from datetime import datetime
 
-from sqlalchemy import String, UniqueConstraint, Enum, DateTime, func, Boolean
+from sqlalchemy import String, DateTime, func, Boolean, Numeric, UniqueConstraint
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from configs.db import Base
 
-from schemas.enums.user_type import UserType
-
 if TYPE_CHECKING:
-    from models.sanitation_record import SanitationRecord
-    from models.water_quality_record import WaterQualityRecord
-    from models.sanitation_occurrence import SanitationOccurrence
+    from domain.models.sanitation_record import SanitationRecord
+    from domain.models.water_quality_record import WaterQualityRecord
+    from domain.models.alert import Alert
+    from domain.models.sanitation_occurrence import SanitationOccurrence
 
 
-class User(Base):
-    __tablename__ = "user"
+class Region(Base):
+    __tablename__ = "region"
 
     __table_args__ = (
-        UniqueConstraint("email"),
-        UniqueConstraint("cpf_cnpj"),
-        UniqueConstraint("phone_number"),
+        UniqueConstraint("name", "state", "city"),
     )
 
     id: Mapped[int] = mapped_column(primary_key=True, index=True)
     name: Mapped[str] = mapped_column(String(120), nullable=False)
-    email: Mapped[str] = mapped_column(String(120), nullable=False)
-    hash_password: Mapped[str] = mapped_column(String(255), nullable=False)
-    cpf_cnpj: Mapped[str] = mapped_column(String(20), nullable=False)
-    phone_number: Mapped[str] = mapped_column(String(20), nullable=False)
-    type: Mapped[UserType] = mapped_column(Enum(UserType), nullable=False)
-    activate: Mapped[bool] = mapped_column(Boolean, nullable=False, default=True)
+    state: Mapped[str] = mapped_column(String(2), nullable=False)
+    city: Mapped[str] = mapped_column(String(120), nullable=False)
+    latitude: Mapped[float] = mapped_column(Numeric(10, 7), nullable=False)
+    longitude: Mapped[float] = mapped_column(Numeric(10, 7), nullable=False)
+    active: Mapped[bool] = mapped_column(Boolean, nullable=False, default=True)
 
     created_at: Mapped[datetime] = mapped_column(
         DateTime(timezone=True),
@@ -48,16 +44,21 @@ class User(Base):
     )
 
     sanitation_records: Mapped[list["SanitationRecord"]] = relationship(
-        back_populates="user",
+        back_populates="region",
         cascade="all, delete-orphan"
     )
 
     water_quality_records: Mapped[list["WaterQualityRecord"]] = relationship(
-        back_populates="user",
+        back_populates="region",
+        cascade="all, delete-orphan"
+    )
+
+    alerts: Mapped[list["Alert"]] = relationship(
+        back_populates="region",
         cascade="all, delete-orphan"
     )
 
     sanitation_occurrences: Mapped[list["SanitationOccurrence"]] = relationship(
-        back_populates="user",
+        back_populates="region",
         cascade="all, delete-orphan"
     )
