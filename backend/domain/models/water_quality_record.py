@@ -11,7 +11,7 @@ from schemas.enums.data_origin import DataOrigin
 from schemas.enums.validation_status import ValidationStatus
 
 if TYPE_CHECKING:
-    from domain.models.user import User
+    from domain.models.user import Users
     from domain.models.region import Region
     from domain.models.alert import Alert
 
@@ -50,7 +50,7 @@ class WaterQualityRecord(Base):
     observation: Mapped[str | None] = mapped_column(Text, nullable=True)
 
     user_id: Mapped[int] = mapped_column(
-        ForeignKey("user.id", ondelete="CASCADE"),
+        ForeignKey("users.id", ondelete="CASCADE"),
         nullable=False
     )
 
@@ -72,7 +72,7 @@ class WaterQualityRecord(Base):
         nullable=False
     )
 
-    user: Mapped["User"] = relationship(
+    user: Mapped["Users"] = relationship(
         back_populates="water_quality_records"
     )
 

@@ -11,7 +11,7 @@ from schemas.enums.problem_type import ProblemType
 from schemas.enums.occurrence_status import OccurrenceStatus
 
 if TYPE_CHECKING:
-    from domain.models.user import User
+    from domain.models.user import Users
     from domain.models.region import Region
 
 
@@ -49,7 +49,7 @@ class SanitationOccurrence(Base):
     )
 
     user_id: Mapped[int] = mapped_column(
-        ForeignKey("user.id", ondelete="CASCADE"),
+        ForeignKey("users.id", ondelete="CASCADE"),
         nullable=False
     )
 
@@ -71,7 +71,7 @@ class SanitationOccurrence(Base):
         nullable=False
     )
 
-    user: Mapped["User"] = relationship(
+    user: Mapped["Users"] = relationship(
         back_populates="sanitation_occurrences"
     )
 

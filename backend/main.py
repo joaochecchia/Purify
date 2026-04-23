@@ -5,6 +5,8 @@ from configs.db import engine, Base
 
 from routes import user_routes
 
+from domain.models import alert, region, sanitation_occurrence, sanitation_record, user, water_quality_record
+
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     print(Base.metadata.tables.keys())

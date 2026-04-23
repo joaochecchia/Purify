@@ -7,7 +7,6 @@ from sqlalchemy import String, UniqueConstraint, Enum, DateTime, func, Boolean
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from configs.db import Base
-
 from schemas.enums.user_type import UserType
 
 if TYPE_CHECKING:
@@ -16,8 +15,8 @@ if TYPE_CHECKING:
     from domain.models.sanitation_occurrence import SanitationOccurrence
 
 
-class User(Base):
-    __tablename__ = "user"
+class Users(Base):
+    __tablename__ = "users"
 
     __table_args__ = (
         UniqueConstraint("email"),

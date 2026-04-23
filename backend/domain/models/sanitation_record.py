@@ -10,7 +10,7 @@ from configs.db import Base
 
 #Resolução de importação circular
 if TYPE_CHECKING:
-    from domain.models.user import User
+    from domain.models.user import Users
     from domain.models.region import Region
 
 #inserção da dependência Base
@@ -25,7 +25,7 @@ class SanitationRecord(Base):
 
     #Campo de FK
     user_id: Mapped[int] = mapped_column(
-        ForeignKey("user.id", ondelete="CASCADE"), #Constraint FK
+        ForeignKey("users.id", ondelete="CASCADE"), #Constraint FK
         nullable=False
     )
 
@@ -52,6 +52,6 @@ class SanitationRecord(Base):
         back_populates="sanitation_records"
     )
 
-    user: Mapped["User"] = relationship(
+    user: Mapped["Users"] = relationship(
         back_populates="sanitation_records"
     )

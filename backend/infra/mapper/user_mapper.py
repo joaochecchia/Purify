@@ -1,4 +1,4 @@
-from domain.models.user import User
+from domain.models.user import Users
 from schemas.dto.user_dto import (
     UserCreateRequest,
     UserUpdateRequest,
@@ -7,8 +7,8 @@ from schemas.dto.user_dto import (
 
 
 class UserMapper:
-    def create_request_to_model(self, request: UserCreateRequest) -> User:
-        return User(
+    def create_request_to_model(self, request: UserCreateRequest) -> Users:
+        return Users(
             name=request.name,
             email=request.email,
             hash_password=request.hash_password,
@@ -20,5 +20,5 @@ class UserMapper:
     def update_request_to_dict(self, request: UserUpdateRequest) -> dict:
         return request.model_dump(exclude_none=True)
 
-    def model_to_response(self, model: User) -> UserResponse:
+    def model_to_response(self, model: Users) -> UserResponse:
         return UserResponse.model_validate(model)

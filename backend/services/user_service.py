@@ -1,9 +1,7 @@
-from domain.interface.user.iuser_service import IUserService
-from infra.repositories.user_repository import UserRepository
 from infra.mapper.user_mapper import UserMapper
 from schemas.dto.user_dto import UserCreateRequest, UserUpdateRequest, UserResponse
-from base_service import BaseService
-from domain.models.user import User
+from services.base_service import BaseService
+from domain.models.user import Users
 from domain.interface.user.iuser_repository import IUserRepository
 from domain.interface.user.iuser_service import IUserService
 
@@ -14,7 +12,7 @@ class UserService(
         UserUpdateRequest,
         UserResponse,
         UserMapper,
-        User
+        Users
     ],
     IUserService
 ):

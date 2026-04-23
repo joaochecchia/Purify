@@ -3,20 +3,20 @@ from typing import Generic, TypeVar, Type, Any
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from domain.models.user import User
+from domain.models.user import Users
 
-from domain.interface.user import iuser_repository
+from domain.interface.user.iuser_repository import IUserRepository
 from schemas.dto.user_dto import LoginRequest
-from base_repository import BaseRepository
+from infra.repositories.base_repository import BaseRepository
 
-class UserRepository(BaseRepository[User], iuser_repository):
+class UserRepository(BaseRepository[Users], IUserRepository):
     def __init__(self, db: AsyncSession):
-        super().__init__(User, db)
+        super().__init__(Users, db)
 
     async def get_by_username_and_password(self, request: LoginRequest) -> bool:
-        stmt = select(User).where(
-            User.email == request.email,
-            User.hash_password == request.password
+        stmt = select(Users).where(
+            Users.email == request.email,
+            Users.hash_password == request.password
         )
 
         result = await self.db.execute(stmt)
