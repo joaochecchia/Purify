@@ -22,11 +22,11 @@ class IUserService:
         ...
 
     @abstractmethod
-    async def update(self, entity: UserUpdateRequest, data: dict) -> UserResponse:
+    async def update(self, id: int, data: UserUpdateRequest) -> UserResponse:
         ...
 
     @abstractmethod
-    async def delete(self, entity: UserUpdateRequest) -> str:
+    async def delete(self, id: int) -> str:
         ...
 
     @abstractmethod
